@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  {% load bootstrap4 %}
+  {% load static %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>FUNDASTORE</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="icon" href="{% static 'imagenes/FUNDASTORE-icon.svg' %}" type="image/gif" sizes="16x16">
+  {%block MasCSS%}
+
+  {%endblock%}
+  <style>
+    /* Sticky footer styles
+-------------------------------------------------- */
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+  }
+
+  body > .container {
+    padding: 30px 15px 0;
+  }
+
+  .footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  code {
+    font-size: 80%;
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light static-top" style="background-color: #D0D0D0;">
+    <div class="container">
+      <a class="navbar-brand" href="/"><img style='height: 40px;width: auto;' src="{% static 'imagenes/FUNDASTORE-logo.svg' %}" alt="FUNDASTORE"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Inicio
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'nosotros'%}">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link"  href="{% url 'principal-contactenos'%}" >Contactenos</a>
+          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mantenimiento
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'listarProductos'%}">Productos</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cuenta
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'logout'%}">Cerrar sesión</a>
+              </div>
+            </li>
+          {% else %}
+            <li class="nav-item active">
+              <a class="nav-link"  href="{% url 'login'%}?next=/" >Iniciar sesión</a>
+            </li>
+          {% endif  %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Page Content -->
+  <div class="container">
+    {%block cuerpo%}
+
+    {%endblock%}
+  </div>
+  <!-- Footer -->
+  <div><br></div>
+  <footer class="footer" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="container" style="text-align: center;">
+      <span class="text-muted">Diseñado por Claudio Rivas Marín.</span>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src= "{% static 'jquery/jquery.slim.min.js' %}" ></script>
+  <script src= "{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  {%block masJS%}
+
+  {%endblock%}
+
+</body>
+
+</html>

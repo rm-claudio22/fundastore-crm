@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{%block titulo%}Iniciar sesión{%endblock%}
+
+{% block cuerpo %}
+    <div class="jumbotron">
+        <table style="width: 80%; margin-left: auto;margin-right: auto;">
+            <tr>
+                <td>
+                    <img style='height: auto;width: 100%;' src="{% static 'imagenes/FUNDASTORE-logo.svg' %}" alt="FUNDASTORE">
+                    <p></p>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <h1>!Sesión finalizada¡</h1>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <h6>Has clic <a  href="{% url 'login'%}?next=/" >aqui</a> para iniciar sesión</h6>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

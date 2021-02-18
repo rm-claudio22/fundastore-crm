@@ -1,0 +1,104 @@
+{% extends 'master.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{%block titulo%}Listar productos{%endblock%}
+
+{%block cuerpo%}
+<h1>
+    Productos
+</h1>
+<a href="{% url 'agregarProducto' %}" class="btn btn-success btn-block">
+    <svg class="bi" width="16" height="16" fill="currentColor">
+        <use xlink:href="{% static 'iconos/bootstrap-icons.svg'%}#plus-circle-fill"/>
+    </svg>
+    NUEVO PRODUCTO
+</a>
+<br>
+
+{% if productos.count > 0 %}
+    <input class="form-control" id="Filtro" type="text" placeholder="Buscar..">
+    <br>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>NOMBRE</th>
+                <th>PRECIO</th>
+                <th>STOCK</th>
+                <th>OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody id="TablaBusqueda">
+            {% for producto in productos%}
+                <tr>
+                    <td style="text-align: center;">
+                        <h6>{{producto.pro_nombre.upper}}</h6>
+                        <img style="width: 128px;height: auto;" src='{{MEDIA_URL}}{{producto.pro_imagen}}'>
+                    </td>
+                    <td>{{producto.pro_precio}}</td>
+                    <td>{{producto.pro_stock}}</td>
+                    <td style="text-align:center;">
+                        <a href="{% url 'leerProducto' producto.pro_id %}" class="btn btn-outline-info">
+                            <svg class="bi" width="16" height="16" fill="currentColor">
+                                <use xlink:href="{% static 'iconos/bootstrap-icons.svg'%}#info-circle-fill"/>
+                            </svg>
+                        </a>
+                        <a href="{% url 'editarProducto' producto.pro_id %}" class="btn btn-outline-warning">
+                            <svg class="bi" width="16" height="16" fill="currentColor">
+                                <use xlink:href="{% static 'iconos/bootstrap-icons.svg'%}#pencil-fill"/>
+                            </svg>
+                        </a>
+                        <button class="btn btn-outline-danger" data-href="{% url 'eliminarProducto' producto.pro_id %}" data-toggle="modal" data-target="#confirm-delete">
+                            <svg class="bi" width="16" height="16" fill="currentColor">
+                                <use xlink:href="{% static 'iconos/bootstrap-icons.svg'%}#eraser-fill"/>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>¿Quieres eliminar este registo?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Despues de elimar este registro no podras recuperarlo</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 class="display-4">No hay productos para mostrar</h1>
+        <p class="lead">Aun no hay productos para mostrar en esta sección, para agregar productos haz clic en el botón <b>NUEVO PRODCUTO</b>.</p>
+        </div>
+    </div>
+{% endif %}
+
+{%endblock%}
+
+{%block masJS%}
+    <script>
+        $(document).ready(function(){
+        $("#Filtro").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#TablaBusqueda tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+{%endblock%}

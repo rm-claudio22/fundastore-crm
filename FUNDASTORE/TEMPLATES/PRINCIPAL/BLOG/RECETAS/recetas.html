@@ -1,0 +1,39 @@
+{% extends 'master.html' %}
+
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block cuerpo %}
+
+    <div class="row">
+        {% for post in recetas %}
+        {% if forloop.counter0 != 0 and forloop.counter0|divisibleby:3 %}
+    
+    </div>
+    <br><br>
+    <div class="row">
+
+        {% endif %}
+
+        
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top" src="{{ MEDIA_URL }}{{ post.blg_banner }}" alt="Card image cap">
+                <div class="card-body" style="height: 200px;">
+                    <h5 class="card-title">{{post.blg_titulo}}</h5>
+                    <p class="card-text">{{post.blg_descripcion}}</p>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-info btn-block" href="#" role="button">Ver receta</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Creado {{post.blg_fecha_post}}<br>Actualizado {{post.blg_fecha_act}}</small>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

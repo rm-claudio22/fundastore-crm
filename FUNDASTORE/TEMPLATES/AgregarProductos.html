@@ -1,0 +1,31 @@
+{% extends 'master.html' %}
+{% load bootstrap4 %}
+
+{%block titulo%}Agregar productos{%endblock%}
+
+{%block cuerpo%}
+<h1>
+{% if request.accion == 'C'%}
+    Crear producto
+{% elif request.accion == 'R'%}
+    Detalle de producto
+{% elif request.accion == 'U'%}
+    Editar producto
+{% else %}
+    Acción no especificada
+{% endif %}
+</h1>
+
+<br>
+<form method="POST" enctype='multipart/form-data'>
+    {%csrf_token%}
+    {% bootstrap_form formulario %}
+    {% buttons %}
+    {% if request.accion != 'R' %}
+        <input class="btn btn-primary" type="submit" value="Guardar">
+        <input class="btn btn-primary" type="reset" value="Limpiar">
+    {%endif%}
+        <a href="{% url 'listarProductos' %}" class="btn btn-primary">Regresar</a>
+    {%endbuttons%}
+</form>
+{%endblock%}
